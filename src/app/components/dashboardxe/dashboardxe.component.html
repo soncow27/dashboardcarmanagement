@@ -1,0 +1,198 @@
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Thêm mới xe</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #f="ngForm" (ngSubmit)="onSubmitAdd(f)" id="addForm">
+        <div class="form-group">
+            <label for="idxe">Id của xe</label>
+            <div class="input-group">
+              <input id="idxe" class="form-control" placeholder="Id của xe" name="idxe" ngModel>
+            </div>
+          </div>
+          <div class="form-group">
+              <label for="tenxe">Tên xe</label>
+              <div class="input-group">
+                <input id="tenxe" class="form-control" placeholder="Tên xe" name="tenxe" ngModel >
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="dateOfBirth">Ảnh xe</label>
+              <div class="input-group">
+                <input id="anhxe" class="form-control" placeholder="Ảnh của xe (Hinh_sothutu.jpg)" name="anhxe" ngModel>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="dateOfBirth">Giá thuê xe</label>
+              <div class="input-group">
+                <input id="giathuexe" class="form-control" placeholder="Giá thuê xe" name="giathuexe" ngModel>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="dateOfBirth">Tài xế</label>
+              <div class="input-group">
+                <input id="taixe" class="form-control" placeholder="Tài xế" name="taixe" ngModel>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="dateOfBirth">Hãng xe</label>
+              <div class="input-group">
+                <input id="hangxe" class="form-control" placeholder="Hãng xe" name="hangxe" ngModel>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="dateOfBirth">Số chỗ</label>
+              <div class="input-group">
+                <input id="socho" class="form-control" placeholder="Số chỗ" name="socho" ngModel>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="dateOfBirth">Địa điểm</label>
+              <div class="input-group">
+                <input id="diadiem" class="form-control" placeholder="Địa điểm" name="diadiem" ngModel>
+              </div>
+            </div>
+      </form>
+    </div>
+    <div class="modal-footer" style="display: block">
+      <button type="button" class="btn waves-effect waves-light btn-secondary" (click)="modal.close('Cancel click')">Cancel</button>
+      <button data-dismiss="modal" class="btn waves-effect waves-light btn-success" form="addForm">Save</button>
+    </div>
+  </ng-template>
+<ng-template #sua let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Sửa thông tin xe</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #fupdate="ngForm" (ngSubmit)="onSubmitUpdate(fupdate)" id="updateForm">
+        <div class="form-group">
+          <label for="idxe">Id của xe</label>
+          <div class="input-group">
+            <input id="idxe" class="form-control" placeholder="Id của xe" name="idxe" ngModel="{{xe.id}}" >
+          </div>
+        </div>
+        <div class="form-group">
+            <label for="tenxe">Tên xe</label>
+            <div class="input-group">
+              <input id="tenxe" class="form-control" placeholder="Tên xe" name="tenxe" ngModel="{{xe.tenxe}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Ảnh xe</label>
+            <div class="input-group">
+              <input id="anhxe" class="form-control" placeholder="Ảnh của xe" name="anhxe" ngModel="{{xe.anh}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Giá thuê xe</label>
+            <div class="input-group">            
+              <input id="giathuexe" class="form-control" placeholder="Giá thuê xe" name="giathuexe" ngModel="{{xe.giathue}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Tài xế</label>
+            <div class="input-group">
+              <input id="taixe" class="form-control" placeholder="Tài xế" name="taixe" ngModel="{{xe.taixe}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Hãng xe</label>
+            <div class="input-group">
+              <input id="hangxe" class="form-control" placeholder="Hãng xe" name="hangxe" ngModel="{{xe.hangxe}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Số chỗ</label>
+            <div class="input-group">
+              <input id="socho" class="form-control" placeholder="Số chỗ" name="socho" ngModel="{{xe.socho}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Địa điểm</label>
+            <div class="input-group">
+              <input id="diadiem" class="form-control" placeholder="Địa điểm" name="diadiem" ngModel="{{xe.diadiem}}">
+            </div>
+          </div>
+      </form>
+    </div>
+    <div class="modal-footer" style="display: block">
+      <button type="button" class="btn waves-effect waves-light btn-secondary" (click)="modal.close('Cancel click')">Cancel</button>
+      <button data-dismiss="modal" class="btn waves-effect waves-light btn-success" form="updateForm">Save</button>
+    </div>
+  </ng-template>
+<div class="page-wrapper">
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <!-- order table -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin các xe hiện có</h4>
+                    <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary" (click)="open(content)" style="margin-bottom: 15px">Thêm xe mới</button>
+                    
+                    <div class="table-responsive">
+                        <table id="default_order" class="table table-striped table-dark table-bordered display no-wrap"
+                            style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Mã xe</th>
+                                    <th>Tên xe</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Giá thuê</th>
+                                    <th>Tài xế</th>
+                                    <th>Hãng xe</th>
+                                    <th>Số chỗ</th>
+                                    <th>Địa điểm</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>    
+                                <tr *ngFor="let xe of danhsachxe ">
+                                    <th>{{xe.id}}</th>
+                                    <th>{{xe.tenxe}}</th>
+                                    <th><img src="../../../assets/images/{{xe.anh}}" class="card-img top" style="height : 160px; width: 160px" alt="xe.img"></th>
+                                    <th>{{xe.giathue}}</th>
+                                    <th>{{xe.taixe}}</th>
+                                    <th>{{xe.hangxe}}</th>
+                                    <th>{{xe.socho}}</th>
+                                    <th>{{xe.diadiem}}</th>
+                                    <th>
+                                        <button type="button" class="btn btn-info me-3"(click)="opensuaxe(sua, xe.id)"> Sửa </button>
+                                        <button type="button" class="btn btn-danger me-3" (click)="removeXe(xe.id)"> Xóa </button>  
+                                    </th>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Mã xe</th>
+                                    <th>Tên xe</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Giá thuê</th>
+                                    <th>Tài xế</th>
+                                    <th>Hãng xe</th>
+                                    <th>Số chỗ</th>
+                                    <th>Địa điểm</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+</div>
+</div>
+

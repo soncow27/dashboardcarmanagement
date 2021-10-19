@@ -1,0 +1,186 @@
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Thêm mới nhân viên</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #f="ngForm" (ngSubmit)="onSubmitAdd(f)" id="addForm">
+          <div class="form-group">
+              <label for="tennv">Tên nhân viên</label>
+              <div class="input-group">
+                <input id="tennv" class="form-control" placeholder="Tên nhân viên" name="tennv" ngModel >
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="dateOfBirth">Giới tính</label>
+              <div class="input-group">
+                <select id="gioitinh" class="form-control" placeholder="Giới tính" name="gioitinh" ngModel>
+                    <option value="true">Nam</option>
+                    <option value="false">Nữ</option>
+                  </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="sdt">Số điện thoại</label>
+              <div class="input-group">
+                <input id="sdt" class="form-control" placeholder="Số điện thoại" name="sdt" ngModel>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="diachi">Địa chỉ</label>
+              <div class="input-group">
+                <input id="diachi" class="form-control" placeholder="Địa chỉ" name="diachi" ngModel>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="username">Username</label>
+              <div class="input-group">
+                <input id="username" class="form-control" placeholder="Username" name="username" ngModel>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <div class="input-group">
+                <input id="password" class="form-control" placeholder="Password" name="password" ngModel>
+              </div>
+            </div>          
+      </form>
+    </div>
+    <div class="modal-footer" style="display: block">
+      <button type="button" class="btn waves-effect waves-light btn-secondary" (click)="modal.close('Cancel click')">Cancel</button>
+      <button data-dismiss="modal" class="btn waves-effect waves-light btn-success" form="addForm">Save</button>
+    </div>
+  </ng-template>
+<ng-template #sua let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Sửa thông tin nhân viên</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #fupdate="ngForm" (ngSubmit)="onSubmitUpdate(fupdate)" id="updateForm">
+        <div class="form-group">
+          <label for="idxe">Id của nhân viên</label>
+          <div class="input-group">
+            <input id="idnv" class="form-control" placeholder="Id của nhân viên" disabled name="idnv" ngModel="{{nguoidung.id}}" >
+          </div>
+        </div>
+        <div class="form-group">
+            <label for="tenxe">Tên nhân viên</label>
+            <div class="input-group">
+              <input id="tennv" class="form-control" placeholder="Tên nhân viên" name="tennv" ngModel="{{nguoidung.tennv}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Giới tính</label>
+            <div class="input-group">
+              <select id="gioitinh" class="form-control" placeholder="Giới tính" name="gioitinh" ngModel>
+                  <option value="true">Nam</option>
+                  <option value="false">Nữ</option>
+                </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sdt">Số điện thoại</label>
+            <div class="input-group">            
+              <input id="sdt" class="form-control" placeholder="Số điện thoại" name="sdt" ngModel="{{nguoidung.sdt}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="diachi">Địa chỉ</label>
+            <div class="input-group">
+              <input id="diachi" class="form-control" placeholder="Địa chỉ" name="diachi" ngModel="{{nguoidung.diachi}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <div class="input-group">
+              <input id="username" class="form-control" placeholder="Username" name="username" ngModel="{{nguoidung.username}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-group">
+              <input id="password" class="form-control" placeholder="Password" name="password" ngModel="{{nguoidung.password}}">
+            </div>
+          </div>      
+      </form>
+    </div>
+    <div class="modal-footer" style="display: block">
+      <button type="button" class="btn waves-effect waves-light btn-secondary" (click)="modal.close('Cancel click')">Cancel</button>
+      <button data-dismiss="modal" class="btn waves-effect waves-light btn-success" form="updateForm">Save</button>
+    </div>
+  </ng-template>
+<div class="page-wrapper">
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <!-- order table -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin người dùng hiện có</h4>
+                    <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary" (click)="open(content)" style="margin-bottom: 15px">Thêm xe mới</button>
+                    
+                    <div class="table-responsive">
+                        <table id="default_order" class="table table-striped table-dark table-bordered display no-wrap"
+                            style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Mã nhân viên</th>
+                                    <th>Tên nhân viên</th>
+                                    <th>Giới tính</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Username</th>
+                                    <th>Password</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>    
+                                <tr *ngFor="let nguoidung of danhsachnhanvien ">
+                                    <th>{{nguoidung.id}}</th>
+                                    <th>{{nguoidung.tennv}}</th>
+                                    <th>{{nguoidung.gioitinh ? "Nam" : "Nữ"}}</th>
+                                    <th>{{nguoidung.sdt}}</th>
+                                    <th>{{nguoidung.diachi}}</th>
+                                    <th>{{nguoidung.username}}</th>
+                                    <th>{{nguoidung.password}}</th>
+                                    <th>
+                                        <button type="button" class="btn btn-info me-3"(click)="opensuanguoidung(sua, nguoidung.id)"> Sửa </button>
+                                        <button type="button" class="btn btn-danger me-3" (click)="removeNguoiDung(nguoidung.id)"> Xóa </button>  
+                                    </th>
+                                </tr>
+                                
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Mã nhân viên</th>
+                                    <th>Tên nhân viên</th>
+                                    <th>Giới tính</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Username</th>
+                                    <th>Password</th>
+                                    <th>Thao tác</th>
+
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+</div>
+</div>
+

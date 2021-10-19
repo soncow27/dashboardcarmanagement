@@ -1,0 +1,156 @@
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Thêm mới hợp đồng</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #addhdf="ngForm" (ngSubmit)="onSubmitAdd(addhdf)" id="addhdForm">
+          <div class="form-group">
+              <label for="ngaylap">Ngày lập</label>
+              <div class="input-group">
+                <input id="ngaylap" type="date" class="form-control" placeholder="Ngày lập" name="ngaylap" ngModel >
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="ngayhethan">Ngày hết hạn</label>
+              <div class="input-group">
+                <input id="ngayhethan" type="date" class="form-control" placeholder="Ngày hêt hạn" name="ngayhethan" ngModel>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="ghichu">Ghi chú</label>
+              <div class="input-group">
+                <select id="ghichu" class="form-control" placeholder="Ghi chú" name="ghichu" ngModel>
+                    <option value="true">Đã thanh toán</option>
+                    <option value="false">Chưa thanh toán</option>
+                  </select>
+              </div>
+            </div>  
+            <div class="form-group">
+                <label for="idkh">Mã khách hàng</label>
+                <div class="input-group">
+                  <input id="idkh" class="form-control" placeholder="Mã khách hàng" name="idkh" ngModel>
+                </div>
+              </div> 
+      </form>
+    </div>
+    <div class="modal-footer" style="display: block">
+      <button type="button" class="btn waves-effect waves-light btn-secondary" (click)="modal.close('Cancel click')">Cancel</button>
+      <button data-dismiss="modal" class="btn waves-effect waves-light btn-success" form="addhdForm">Save</button>
+    </div>
+  </ng-template>
+<ng-template #sua let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Sửa thông tin hợp đồng</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #fupdate="ngForm" (ngSubmit)="onSubmitUpdate(fupdate)" id="updateForm">
+        <div class="form-group">
+          <label for="idhopdong">Id của hợp đồng</label>
+          <div class="input-group">
+            <input id="idhd" class="form-control" placeholder="Id của hợp đồng" disabled name="idhd" ngModel="{{hopdong.id}}" >
+          </div>
+        </div>
+        <div class="form-group">
+            <label for="ngaylap">Ngày lập</label>
+            <div class="input-group">
+              <input id="ngaylap" type="date" class="form-control" placeholder="Ngày lập" name="ngaylap" ngModel="{{hopdong.ngaylap.toISOString().split('T')[0]}}" >
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="ngayhethan">Ngày hết hạn</label>
+            <div class="input-group">
+              <input id="ngayhethan" type="date" class="form-control" placeholder="Ngày hêt hạn" name="ngayhethan" ngModel="{{hopdong.ngayhethan.toISOString().split('T')[0]}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="ghichu">Ghi chú</label>
+            <div class="input-group">
+                <select id="ghichu" class="form-control" placeholder="Ghi chú" name="ghichu" ngModel="{{hopdong.ghichu}}">
+                    <option value="true">Đã thanh toán</option>
+                    <option value="false">Chưa thanh toán</option>
+                  </select>
+            </div>
+          </div>  
+          <div class="form-group">
+            <label for="idkh">Mã khách hàng</label>
+            <div class="input-group">
+              <input id="idkh" class="form-control" placeholder="Mã khách hàng" name="idkh" ngModel="{{hopdong.idkh}}">
+            </div>
+          </div> 
+      </form>
+    </div>
+    <div class="modal-footer" style="display: block">
+      <button type="button" class="btn waves-effect waves-light btn-secondary" (click)="modal.close('Cancel click')">Cancel</button>
+      <button data-dismiss="modal" class="btn waves-effect waves-light btn-success" form="updateForm">Save</button>
+    </div>
+  </ng-template>
+<div class="page-wrapper">
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <!-- order table -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin hợp đồng hiện có</h4>
+                    <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary" (click)="open(content)" style="margin-bottom: 15px">Thêm hợp đồng mới</button>
+                    
+                    <div class="table-responsive">
+                        <table id="default_order" class="table table-striped table-dark table-bordered display no-wrap"
+                            style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Mã hợp đồng</th>
+                                    <th>Ngày lập</th>
+                                    <th>Ngày hết hạn</th>
+                                    <th>Ghi chú</th>
+                                    <th>Mã khách hàng</th>    
+                                    <th>Thao tác</th>                            
+                                </tr>
+                            </thead>
+                            <tbody>    
+                                <tr *ngFor="let hopdong of danhsachhopdong ">
+                                    <th>{{hopdong.id}}</th>
+                                    <th>{{hopdong.ngaylap.toDateString()}}</th>
+                                    <th>{{hopdong.ngayhethan.toDateString()}}</th>
+                                    <th>{{hopdong.ghichu ? "Đã thanh toán" : "Chưa thanh toán"}}</th>
+                                    <th>{{hopdong.idkh}}</th>                                 
+                                    <th>
+                                        <button type="button" class="btn btn-info me-3"(click)="opensuahopdong(sua, hopdong.id)"> Sửa </button>
+                                        <button type="button" class="btn btn-danger me-3" (click)="removeHopDong(hopdong.id)"> Xóa </button>  
+                                    </th>
+                                </tr>
+                                
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Mã hợp đồng</th>
+                                    <th>Ngày lập</th>
+                                    <th>Ngày hết hạn</th>
+                                    <th>Ghi chú</th>
+                                    <th>Mã khách hàng</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+</div>
+</div>
+
+
